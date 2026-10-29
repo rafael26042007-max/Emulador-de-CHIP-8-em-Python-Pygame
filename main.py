@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     # ----- emulador -----
     mem = Memoria()
-    mem.carregar_rom("rom/2-ibm-logo.ch8")
+    mem.carregar_rom("rom/3-corax+.ch8")
     tela = Tela()
     cpu = CPU(mem, tela)
 

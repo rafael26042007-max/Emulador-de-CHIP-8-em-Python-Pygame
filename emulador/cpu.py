@@ -68,8 +68,48 @@ class CPU:
         elif tipo == 0x7:                    # ADD: VX = VX + NN
             self.V[x] = (self.V[x] + nn) & 0xFF
 
+        elif tipo == 0x8:                    # MATEMÁTICA: o n diz qual conta
+            if n == 0x0:                     # VX = VY
+                self.V[x] = self.V[y]
+
+            elif n == 0x1:                   # VX = VX OU VY
+                self.V[x] = self.V[x] | self.V[y]
+
+            elif n == 0x2:                   # VX = VX E VY
+                self.V[x] = self.V[x] & self.V[y]
+
+            elif n == 0x3:                   # VX = VX XOR VY
+                self.V[x] = self.V[x] ^ self.V[y]
+
+            elif n == 0x4:                   # SOMA com "vai um"
+                soma = self.V[x] + self.V[y]
+                flag = 1 if soma > 255 else 0
+                self.V[x] = soma & 0xFF
+                self.V[0xF] = flag
+
+            elif n == 0x5:                   # VX - VY
+                flag = 1 if self.V[x] >= self.V[y] else 0
+                self.V[x] = (self.V[x] - self.V[y]) & 0xFF
+                self.V[0xF] = flag
+
+            elif n == 0x6:                   # empurra pra direita
+                flag = self.V[x] & 0x1       # bit da ponta direita
+                self.V[x] = self.V[x] >> 1
+                self.V[0xF] = flag
+
+            elif n == 0x7:                   # VY - VX
+                flag = 1 if self.V[y] >= self.V[x] else 0
+                self.V[x] = (self.V[y] - self.V[x]) & 0xFF
+                self.V[0xF] = flag
+
+            elif n == 0xE:                   # empurra pra esquerda
+                flag = (self.V[x] >> 7) & 0x1   # bit da ponta esquerda
+                self.V[x] = (self.V[x] << 1) & 0xFF
+                self.V[0xF] = flag
+
         elif tipo == 0x9:                    # SKIP se VX != VY
-            self.I = self.I[x]
+            if self.V[x] != self.V[y]:
+                self.pc += 2
 
         elif tipo == 0xA:                    # SET I = NNN
             self.I = nnn
@@ -78,6 +118,24 @@ class CPU:
             sprite = [self.memoria.ler(self.I + i) for i in range(n)]
             colisao = self.tela.desenhar_sprite(self.V[x], self.V[y], sprite)
             self.V[0xF] = 1 if colisao else 0
+
+        elif tipo == 0xF:                    # INSTRUÇÕES F: o nn diz qual
+            if nn == 0x1E:                   # I = I + VX
+                self.I = (self.I + self.V[x]) & 0xFFFF
+
+            elif nn == 0x33:                 # separa VX em 3 dígitos
+                valor = self.V[x]
+                self.memoria.escrever(self.I,     valor // 100)        # centena
+                self.memoria.escrever(self.I + 1, (valor // 10) % 10)  # dezena
+                self.memoria.escrever(self.I + 2, valor % 10)          # unidade
+
+            elif nn == 0x55:                 # salva V0..VX na memória
+                for i in range(x + 1):
+                    self.memoria.escrever(self.I + i, self.V[i])
+
+            elif nn == 0x65:                 # carrega V0..VX da memória
+                for i in range(x + 1):
+                    self.V[i] = self.memoria.ler(self.I + i)
 
         else:
             print(f"Instrução não implementada: {opcode:04X}")
