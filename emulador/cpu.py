@@ -40,15 +40,36 @@ class CPU:
         if opcode == 0x00E0:                 # CLS: limpa a tela
             self.tela.limpar()
 
+        elif opcode == 0x00EE:               # RET: volta da sub-rotina
+            self.pc = self.pilha.pop()
+
         elif tipo == 0x1:                    # JUMP: pula pra NNN
             self.pc = nnn
 
+        elif tipo == 0x2:                    # CALL: chama sub-rotina
+            self.pilha.append(self.pc)
+            self.pc = nnn
+
+        elif tipo == 0x3:                    # SKIP se VX == NN
+            if self.V[x] == nn:
+                self.pc += 2
+
+        elif tipo == 0x4:                    # SKIP se VX != NN
+            if self.V[x] != nn:
+                self.pc += 2
+
+        elif tipo == 0x5:                    # SKIP se VX == VY
+            if self.V[x] == self.V[y]:
+                self.pc += 2
+
         elif tipo == 0x6:                    # SET: VX = NN
-            self.V[x] == nn                  # ⬅️ guarda o nn direto no registrador
+            self.V[x] = nn                   # ⬅️ UM "=" só!
 
         elif tipo == 0x7:                    # ADD: VX = VX + NN
             self.V[x] = (self.V[x] + nn) & 0xFF
 
+        elif tipo == 0x9:                    # SKIP se VX != VY
+            self.I = self.I[x]
 
         elif tipo == 0xA:                    # SET I = NNN
             self.I = nnn
