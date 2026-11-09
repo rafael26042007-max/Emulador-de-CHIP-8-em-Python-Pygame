@@ -7,6 +7,7 @@ ALTURA = 32
 ESCALA = 10          # cada pixel do CHIP-8 vira um quadrado de 10x10 na janela
 COR_LIGADO = (255, 255, 255)
 COR_DESLIGADO = (0, 0, 0)
+DECAIMENTO = 40      # quanto o brilho cai por quadro quando o pixel apaga (255 = sem rastro)
 
 
 # ===== CLASSE TELA =====
@@ -14,6 +15,10 @@ class Tela:
     def __init__(self):
         # matriz 32 linhas x 64 colunas, tudo apagado (0)
         self.pixels = [[0] * LARGURA for _ in range(ALTURA)]
+
+        # brilho de cada pixel (0 a 255): simula o fósforo das TVs antigas,
+        # que não apagavam na hora, iam sumindo devagar
+        self.brilho = [[0] * LARGURA for _ in range(ALTURA)]
 
     # ----- limpar (instrução 00E0) -----
     def limpar(self):
@@ -47,6 +52,15 @@ class Tela:
         janela.fill(COR_DESLIGADO)
         for y, linha in enumerate(self.pixels):
             for x, pixel in enumerate(linha):
+                # aceso: brilho máximo / apagado: vai perdendo brilho aos poucos
                 if pixel:
-                    pygame.draw.rect(janela, COR_LIGADO,
+                    self.brilho[y][x] = 255
+                elif self.brilho[y][x] > 0:
+                    self.brilho[y][x] = max(0, self.brilho[y][x] - DECAIMENTO)
+
+                b = self.brilho[y][x]
+                if b:
+                    # mistura a cor ligada com o preto, de acordo com o brilho
+                    cor = tuple(c * b // 255 for c in COR_LIGADO)
+                    pygame.draw.rect(janela, cor,
                                      (x * ESCALA, y * ESCALA, ESCALA, ESCALA))
