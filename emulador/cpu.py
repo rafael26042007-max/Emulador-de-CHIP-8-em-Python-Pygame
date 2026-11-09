@@ -1,19 +1,25 @@
 # ===== IMPORTS =====
+import random
 from emulador.memoria import INICIO_PROGRAMA
 from emulador.fonte import INICIO_FONTE, BYTES_POR_DIGITO
 
 
 # ===== CLASSE CPU =====
 class CPU:
-    def __init__(self, memoria, tela):
+    def __init__(self, memoria, tela, teclado):
         self.memoria = memoria
         self.tela = tela
+        self.teclado = teclado
 
         # ----- registradores -----
         self.V = [0] * 16          # V0 até VF
         self.I = 0                 # registrador de endereço
         self.pc = INICIO_PROGRAMA  # Program Counter
         self.pilha = []            # pilha de retorno
+
+        # ----- timers -----
+        self.delay = 0             # delay timer: conta pra trás 60x por segundo
+        self.som = 0               # sound timer: enquanto > 0, toca o bip
 
     # ----- FETCH: buscar a instrução -----
     def fetch(self):
@@ -31,6 +37,13 @@ class CPU:
         nn   =  opcode & 0x00FF
         nnn  =  opcode & 0x0FFF
         return tipo, x, y, n, nn, nnn
+
+    # ----- TIMERS: chamado 1 vez por quadro (60x por segundo) -----
+    def atualizar_timers(self):
+        if self.delay > 0:
+            self.delay -= 1
+        if self.som > 0:
+            self.som -= 1
 
     # ----- CICLO: fetch → decode → execute -----
     def ciclo(self):
@@ -115,13 +128,44 @@ class CPU:
         elif tipo == 0xA:                    # SET I = NNN
             self.I = nnn
 
+        elif tipo == 0xB:                    # JUMP com V0: pula pra NNN + V0
+            self.pc = nnn + self.V[0]
+
+        elif tipo == 0xC:                    # RANDOM: VX = número aleatório & NN
+            self.V[x] = random.randint(0, 255) & nn
+
         elif tipo == 0xD:                    # DRAW
             sprite = [self.memoria.ler(self.I + i) for i in range(n)]
             colisao = self.tela.desenhar_sprite(self.V[x], self.V[y], sprite)
             self.V[0xF] = 1 if colisao else 0
 
+        elif tipo == 0xE:                    # TECLADO: o nn diz qual
+            if nn == 0x9E:                   # SKIP se a tecla VX está apertada
+                if self.teclado.apertada(self.V[x]):
+                    self.pc += 2
+
+            elif nn == 0xA1:                 # SKIP se a tecla VX NÃO está apertada
+                if not self.teclado.apertada(self.V[x]):
+                    self.pc += 2
+
         elif tipo == 0xF:                    # INSTRUÇÕES F: o nn diz qual
-            if nn == 0x1E:                   # I = I + VX
+            if nn == 0x07:                   # VX = delay timer
+                self.V[x] = self.delay
+
+            elif nn == 0x0A:                 # ESPERA uma tecla e guarda em VX
+                tecla = self.teclado.qualquer_apertada()
+                if tecla is None:
+                    self.pc -= 2             # volta 2: repete essa instrução até apertar
+                else:
+                    self.V[x] = tecla
+
+            elif nn == 0x15:                 # delay timer = VX
+                self.delay = self.V[x]
+
+            elif nn == 0x18:                 # sound timer = VX
+                self.som = self.V[x]
+
+            elif nn == 0x1E:                 # I = I + VX
                 self.I = (self.I + self.V[x]) & 0xFFFF
 
             elif nn == 0x29:                 # I aponta pro desenho do dígito VX

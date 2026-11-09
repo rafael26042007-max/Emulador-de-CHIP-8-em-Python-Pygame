@@ -11,6 +11,8 @@ class Memoria:
     def __init__(self):
         # cria as 4096 caixinhas, todas com 0
         self.dados = bytearray(TAMANHO_MEMORIA)
+        self.delay = 0             # delay timer: conta pra trás 60x por segundo
+        self.som = 0               # sound timer: enquanto > 0, toca o bip
 
         # copia os desenhos dos dígitos pra memória, a partir do 0x50
         for i, byte in enumerate(FONTE):
