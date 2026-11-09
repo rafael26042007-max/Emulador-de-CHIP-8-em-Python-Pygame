@@ -1,0 +1,44 @@
+{
+    "chip8": [
+        {"nome": "Teste: logo CHIP-8", "destino": "rom/1-chip8-logo.ch8",
+         "url": "https://raw.githubusercontent.com/Timendus/chip8-test-suite/main/bin/1-chip8-logo.ch8"},
+        {"nome": "Teste: logo IBM", "destino": "rom/2-ibm-logo.ch8",
+         "url": "https://raw.githubusercontent.com/Timendus/chip8-test-suite/main/bin/2-ibm-logo.ch8"},
+        {"nome": "Teste: corax+", "destino": "rom/3-corax+.ch8",
+         "url": "https://raw.githubusercontent.com/Timendus/chip8-test-suite/main/bin/3-corax+.ch8"},
+        {"nome": "Teste: flags", "destino": "rom/4-flags.ch8",
+         "url": "https://raw.githubusercontent.com/Timendus/chip8-test-suite/main/bin/4-flags.ch8"},
+        {"nome": "Teste: quirks", "destino": "rom/5-quirks.ch8",
+         "url": "https://raw.githubusercontent.com/Timendus/chip8-test-suite/main/bin/5-quirks.ch8"},
+        {"nome": "Teste: teclado", "destino": "rom/6-keypad.ch8",
+         "url": "https://raw.githubusercontent.com/Timendus/chip8-test-suite/main/bin/6-keypad.ch8"},
+        {"nome": "Teste: som", "destino": "rom/7-beep.ch8",
+         "url": "https://raw.githubusercontent.com/Timendus/chip8-test-suite/main/bin/7-beep.ch8"},
+
+        {"nome": "Pong", "destino": "rom/pong.ch8",
+         "url": "https://raw.githubusercontent.com/kripod/chip8-roms/master/games/Pong%20(1%20player).ch8"},
+        {"nome": "Tetris", "destino": "rom/tetris.ch8",
+         "url": "https://raw.githubusercontent.com/kripod/chip8-roms/master/games/Tetris%20%5BFran%20Dachille%2C%201991%5D.ch8"},
+        {"nome": "Brix", "destino": "rom/brix.ch8",
+         "url": "https://raw.githubusercontent.com/kripod/chip8-roms/master/games/Brix%20%5BAndreas%20Gustafsson%2C%201990%5D.ch8"},
+        {"nome": "Space Invaders", "destino": "rom/space-invaders.ch8",
+         "url": "https://raw.githubusercontent.com/kripod/chip8-roms/master/games/Space%20Invaders%20%5BDavid%20Winter%5D.ch8"},
+        {"nome": "Tank", "destino": "rom/tank.ch8",
+         "url": "https://raw.githubusercontent.com/kripod/chip8-roms/master/games/Tank.ch8"},
+        {"nome": "UFO", "destino": "rom/ufo.ch8",
+         "url": "https://raw.githubusercontent.com/kripod/chip8-roms/master/games/UFO%20%5BLutz%20V%2C%201992%5D.ch8"}
+    ],
+
+    "emuladores": [
+        {"nome": "ares v148 (Nintendo 64)", "destino": "ares",
+         "url": "https://github.com/ares-emulator/ares/releases/download/v148/ares-windows-x64.zip",
+         "sha256": "fa97958e1d359e3fe254353f87b6508f2762a959d7eb264c69965ad002037298",
+         "zip_pasta_interna": "ares-v148",
+         "so_windows": true}
+    ],
+
+    "manuais": [
+        {"nome": "Phazer 64 (N64)", "pagina": "https://coreproduction.itch.io/phazer64", "destino": "rom/n64/"},
+        {"nome": "Plug'n Repair (N64)", "pagina": "https://drludos.itch.io/plug-n-repair", "destino": "rom/n64/"}
+    ]
+}
