@@ -1,5 +1,6 @@
 # ===== IMPORTS =====
 from emulador.memoria import INICIO_PROGRAMA
+from emulador.fonte import INICIO_FONTE, BYTES_POR_DIGITO
 
 
 # ===== CLASSE CPU =====
@@ -122,6 +123,10 @@ class CPU:
         elif tipo == 0xF:                    # INSTRUÇÕES F: o nn diz qual
             if nn == 0x1E:                   # I = I + VX
                 self.I = (self.I + self.V[x]) & 0xFFFF
+
+            elif nn == 0x29:                 # I aponta pro desenho do dígito VX
+                # só os 4 bits de baixo importam (dígito de 0 a F)
+                self.I = INICIO_FONTE + (self.V[x] & 0x0F) * BYTES_POR_DIGITO
 
             elif nn == 0x33:                 # separa VX em 3 dígitos
                 valor = self.V[x]

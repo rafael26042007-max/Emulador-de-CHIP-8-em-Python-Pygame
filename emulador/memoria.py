@@ -1,3 +1,6 @@
+# ===== IMPORTS =====
+from emulador.fonte import FONTE, INICIO_FONTE
+
 # ===== CONSTANTES =====
 TAMANHO_MEMORIA = 4096
 INICIO_PROGRAMA = 0x200   # 0x200 = 512 em decimal
@@ -8,6 +11,10 @@ class Memoria:
     def __init__(self):
         # cria as 4096 caixinhas, todas com 0
         self.dados = bytearray(TAMANHO_MEMORIA)
+
+        # copia os desenhos dos dígitos pra memória, a partir do 0x50
+        for i, byte in enumerate(FONTE):
+            self.dados[INICIO_FONTE + i] = byte
 
     def carregar_rom(self, caminho):
         # "rb" = read (ler) + binary (binário)
