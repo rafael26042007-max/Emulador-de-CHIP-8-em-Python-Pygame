@@ -1,0 +1,13 @@
+# ambiente e cache
+.venv/
+__pycache__/
+*.pyc
+.idea/
+*.iml
+
+# emuladores de terceiros (cada um baixa o seu)
+ares/
+RMG/
+
+# jogos de N64 (não podem ir pro GitHub)
+rom/n64/

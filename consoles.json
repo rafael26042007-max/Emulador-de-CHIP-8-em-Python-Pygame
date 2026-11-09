@@ -1,0 +1,12 @@
+{
+    "chip8": {
+        "nome": "CHIP-8",
+        "extensoes": [".ch8"],
+        "comando": ["{python}", "main.py", "{rom}"]
+    },
+    "n64": {
+        "nome": "Nintendo 64",
+        "extensoes": [".z64", ".n64", ".v64", ".zip"],
+        "comando": ["ares/ares.exe", "--system", "Nintendo 64", "{rom}"]
+    }
+}

@@ -1,4 +1,5 @@
 # ===== IMPORTS =====
+import sys
 import pygame
 from emulador.memoria import Memoria
 from emulador.cpu import CPU
@@ -9,7 +10,9 @@ from audio.som import Som
 
 # ===== CONSTANTES =====
 INSTRUCOES_POR_FRAME = 10   # quantas instruções a CPU roda a cada quadro
-ROM = "rom/pong9.ch8"        # troque aqui pra rodar outro jogo
+# a ROM pode vir da central de jogos (python main.py rom/jogo.ch8)
+# se rodar o main.py direto, usa a ROM padrão
+ROM = sys.argv[1] if len(sys.argv) > 1 else "rom/pong9.ch8"
 
 # Atalhos do emulador (nenhum deles é tecla do CHIP-8):
 #   TAB = mostra/esconde o debugger
