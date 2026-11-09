@@ -8,7 +8,7 @@ from audio.som import Som
 
 # ===== CONSTANTES =====
 INSTRUCOES_POR_FRAME = 10   # quantas instruções a CPU roda a cada quadro
-ROM = "rom/3-corax+.ch8"    # troque aqui pra rodar outro jogo
+ROM = "rom/7-beep.ch8"    # troque aqui pra rodar outro jogo
 
 # ===== EXECUÇÃO =====
 if __name__ == "__main__":
