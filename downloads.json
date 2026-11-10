@@ -93,6 +93,61 @@
       "nome": "Teste: dmg-acid2",
       "destino": "rom/gb/dmg-acid2.gb",
       "url": "https://github.com/mattcurrie/dmg-acid2/releases/download/v1.0/dmg-acid2.gb"
+    },
+    {
+      "nome": "Teste CPU (Blargg): 01-special",
+      "destino": "rom/gb/blargg/01-special.gb",
+      "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/master/cpu_instrs/individual/01-special.gb"
+    },
+    {
+      "nome": "Teste CPU (Blargg): 02-interrupts",
+      "destino": "rom/gb/blargg/02-interrupts.gb",
+      "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/master/cpu_instrs/individual/02-interrupts.gb"
+    },
+    {
+      "nome": "Teste CPU (Blargg): 03-op sp,hl",
+      "destino": "rom/gb/blargg/03-op_sp_hl.gb",
+      "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/master/cpu_instrs/individual/03-op%20sp%2Chl.gb"
+    },
+    {
+      "nome": "Teste CPU (Blargg): 04-op r,imm",
+      "destino": "rom/gb/blargg/04-op_r_imm.gb",
+      "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/master/cpu_instrs/individual/04-op%20r%2Cimm.gb"
+    },
+    {
+      "nome": "Teste CPU (Blargg): 05-op rp",
+      "destino": "rom/gb/blargg/05-op_rp.gb",
+      "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/master/cpu_instrs/individual/05-op%20rp.gb"
+    },
+    {
+      "nome": "Teste CPU (Blargg): 06-ld r,r",
+      "destino": "rom/gb/blargg/06-ld_r_r.gb",
+      "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/master/cpu_instrs/individual/06-ld%20r%2Cr.gb"
+    },
+    {
+      "nome": "Teste CPU (Blargg): 07-jr,jp,call,ret,rst",
+      "destino": "rom/gb/blargg/07-jr_jp_call_ret_rst.gb",
+      "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/master/cpu_instrs/individual/07-jr%2Cjp%2Ccall%2Cret%2Crst.gb"
+    },
+    {
+      "nome": "Teste CPU (Blargg): 08-misc instrs",
+      "destino": "rom/gb/blargg/08-misc_instrs.gb",
+      "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/master/cpu_instrs/individual/08-misc%20instrs.gb"
+    },
+    {
+      "nome": "Teste CPU (Blargg): 09-op r,r",
+      "destino": "rom/gb/blargg/09-op_r_r.gb",
+      "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/master/cpu_instrs/individual/09-op%20r%2Cr.gb"
+    },
+    {
+      "nome": "Teste CPU (Blargg): 10-bit ops",
+      "destino": "rom/gb/blargg/10-bit_ops.gb",
+      "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/master/cpu_instrs/individual/10-bit%20ops.gb"
+    },
+    {
+      "nome": "Teste CPU (Blargg): 11-op a,(hl)",
+      "destino": "rom/gb/blargg/11-op_a_(hl).gb",
+      "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/master/cpu_instrs/individual/11-op%20a%2C%28hl%29.gb"
     }
   ]
 }
