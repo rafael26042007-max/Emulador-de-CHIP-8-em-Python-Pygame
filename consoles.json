@@ -8,5 +8,10 @@
         "nome": "Nintendo 64",
         "extensoes": [".z64", ".n64", ".v64", ".zip"],
         "comando": ["ares/ares.exe", "--system", "Nintendo 64", "{rom}"]
+    },
+    "gameboy": {
+        "nome": "Game Boy",
+        "extensoes": [".gb"],
+        "comando": ["{python}", "gameboy_main.py", "{rom}"]
     }
 }

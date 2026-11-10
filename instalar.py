@@ -47,9 +47,9 @@ def sha256_do_arquivo(caminho):
     return soma.hexdigest()
 
 
-# ===== JOGOS DE CHIP-8 =====
-def instalar_chip8(itens):
-    print("\n== Jogos de CHIP-8 ==")
+# ===== JOGOS (lista de arquivos pra baixar) =====
+def instalar_jogos(itens, titulo):
+    print(f"\n== {titulo} ==")
     for item in itens:
         destino = item["destino"]
         if os.path.exists(destino):
@@ -122,7 +122,9 @@ if __name__ == "__main__":
     with open(ARQUIVO_DOWNLOADS, encoding="utf-8") as arquivo:
         lista = json.load(arquivo)
 
-    instalar_chip8(lista["chip8"])
+    instalar_jogos(lista["chip8"], "Jogos de CHIP-8")
+    # o Game Boy usa a mesma função: é só uma lista de arquivos pra baixar
+    instalar_jogos(lista.get("gameboy", []), "Game Boy")
 
     print("\n== Emuladores ==")
     for emulador in lista["emuladores"]:
